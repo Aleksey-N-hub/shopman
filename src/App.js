@@ -1,12 +1,14 @@
 import React from "react";
 import "./App.css";
-import Featured from "./components/featured";
+// import Featured from "./components/featured";
+import Product from "./pages/product";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Featured />
-    </div>
+    <>
+      <Route path="/:slug" component={Product} />
+    </>
   );
 }
 

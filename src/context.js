@@ -56,11 +56,18 @@ class Provider extends Component {
     return tempItems;
   };
 
+  getProduct = (slug) => {
+    let tempProducts = [...this.state.products];
+    const product = tempProducts.find((el) => el.slug === slug);
+    return product;
+  };
+
   render() {
     return (
       <Context.Provider
         value={{
           ...this.state,
+          getProduct: this.getProduct,
         }}
       >
         {this.props.children}
