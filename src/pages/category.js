@@ -9,10 +9,7 @@ export default class Product extends Component {
   };
 
   static contextType = Context;
-  handleRedirect = (slug) => {
-    let url = `/products/${slug}`;
-    this.props.history.push(url);
-  };
+
   render() {
     const { getCategoryProducts } = this.context;
     const products = getCategoryProducts(this.state.category);
@@ -29,10 +26,7 @@ export default class Product extends Component {
     return (
       <section className="categoryList">
         <div className="categories-main">
-          <ProductList
-            products={products}
-            clicked={() => this.handleRedirect()}
-          />
+          <ProductList products={products} />
         </div>
       </section>
     );

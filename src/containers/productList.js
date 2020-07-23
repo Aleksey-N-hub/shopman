@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProductCell from "../components/productCell";
 
-function productList(props) {
+export default function productList(props) {
   const { products, clicked } = props;
   console.log(props);
   if (products.length === 0) {
@@ -15,11 +15,11 @@ function productList(props) {
   }
 
   return (
-    <BrowserRouter>
-      <section className="categoryList">
-        <div className="categories-main">
-          {products.map((el, id) => {
-            return (
+    <section className="categoryList">
+      <div className="categories-main">
+        {products.map((el, id) => {
+          return (
+            <Link to={`/products/${el.slug}`}>
               <ProductCell
                 key={id}
                 discount={el.discount}
@@ -30,14 +30,11 @@ function productList(props) {
                 price={el.price}
                 stars={el.stars}
                 reviews={el.reviews}
-                clicked={() => clicked(el.slug)}
               />
-            );
-          })}
-        </div>
-      </section>
-    </BrowserRouter>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
   );
 }
-
-export default productList;
