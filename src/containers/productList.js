@@ -1,8 +1,10 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import ProductCell from "../components/category";
+import React from "react";
+import { Link, BrowserRouter } from "react-router-dom";
+import ProductCell from "../components/productCell";
 
-export default function productList({ products }) {
+function productList(props) {
+  const { products, clicked } = props;
+  console.log(props);
   if (products.length === 0) {
     return (
       <div>
@@ -13,24 +15,29 @@ export default function productList({ products }) {
   }
 
   return (
-    <section className="categoryList">
-      <div className="categories-main">
-        {products.map((el, id) => {
-          return (
-            <ProductCell
-              key={id}
-              discount={el.discount}
-              new={el.new}
-              src={el.pictures[0].fields.file.url}
-              name={el.name}
-              description={el.descr}
-              price={el.price}
-              stars={el.stars}
-              reviews={el.reviews}
-            />
-          );
-        })}
-      </div>
-    </section>
+    <BrowserRouter>
+      <section className="categoryList">
+        <div className="categories-main">
+          {products.map((el, id) => {
+            return (
+              <ProductCell
+                key={id}
+                discount={el.discount}
+                new={el.new}
+                src={el.pictures[0].fields.file.url}
+                name={el.name}
+                description={el.descr}
+                price={el.price}
+                stars={el.stars}
+                reviews={el.reviews}
+                clicked={() => clicked(el.slug)}
+              />
+            );
+          })}
+        </div>
+      </section>
+    </BrowserRouter>
   );
 }
+
+export default productList;

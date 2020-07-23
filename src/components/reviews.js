@@ -4,20 +4,21 @@ import { FaStarHalfAlt, FaStar, FaRegStar } from "react-icons/fa";
 export default function reviews(props) {
   let star = FaRegStar;
   if (props.stars - Math.ceil(props.stars) > 0.6) {
-    star = <FaStar />;
+    star = <FaStar className="stars" />;
   } else if (props.stars - Math.ceil(props.stars) < 0.4) {
-    star = <FaRegStar />;
+    star = <FaRegStar className="stars" />;
   } else {
-    star = <FaStarHalfAlt />;
+    star = <FaStarHalfAlt className="stars" />;
   }
   return (
-    <>
-      <FaStar />
-      <FaStar />
-      <FaStar />
-      <FaStar />
-      {star}
-      <p>{props.reviews}</p>
-    </>
+    <div className="reviews">
+      <div>
+        <FaStar className="stars" />
+        <FaStar className="stars" />
+        <FaStar className="stars" />
+        <FaStar className="stars" />
+        {star} {props.reviews}
+      </div>
+    </div>
   );
 }
