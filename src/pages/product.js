@@ -16,7 +16,7 @@ export default class Product extends Component {
     if (!product) {
       return (
         <div>
-          <h2>no such room could be found...</h2>
+          <h2>no such product could be found...</h2>
           <Link>Back to</Link>
         </div>
       );

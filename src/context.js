@@ -31,9 +31,14 @@ class Provider extends Component {
         // order: "fields.price",
       });
       console.log(response);
+
       let products = this.formatData(response.items);
+      let maxPrice = Math.max(...products.map((el) => el.price));
       this.setState({
         products,
+        sortedProducts: products,
+        loading: false,
+        price: maxPrice,
       });
     } catch (error) {
       console.log(error);
@@ -56,6 +61,46 @@ class Provider extends Component {
     return tempItems;
   };
 
+  sorting = (order, products) => {
+    let { sortedProducts } = this.state;
+    let tempProducts = [...sortedProducts];
+    console.log("started sorting");
+    switch (order) {
+      case "low": {
+        console.log(tempProducts.price);
+        tempProducts = tempProducts.sort((a, b) =>
+          a.price > b.price ? 1 : -1
+        );
+        return tempProducts;
+      }
+      case "high":
+        return (tempProducts = tempProducts.sort((a, b) =>
+          a.price > b.price
+            ? 1
+            : a.price === b.price
+            ? a.price > b.price
+              ? 1
+              : -1
+            : -1
+        ));
+      case "popular":
+        return tempProducts.sort((a, b) => a.price - b.price);
+      case "new":
+        return tempProducts.sort((a, b) => a.price - b.price);
+    }
+    this.setState({ sortedProducts: tempProducts });
+  };
+
+  getCategoryProducts = (slug) => {
+    let tempProducts = [...this.state.products];
+    console.log(slug, tempProducts);
+    const products = tempProducts.filter(
+      (el) => el.categories.indexOf(slug) !== -1
+    );
+    // this.setState({ sortedProducts: products });
+    return products;
+  };
+
   getProduct = (slug) => {
     let tempProducts = [...this.state.products];
     const product = tempProducts.find((el) => el.slug === slug);
@@ -68,6 +113,8 @@ class Provider extends Component {
         value={{
           ...this.state,
           getProduct: this.getProduct,
+          getCategoryProducts: this.getCategoryProducts,
+          sorting: this.sorting,
         }}
       >
         {this.props.children}
