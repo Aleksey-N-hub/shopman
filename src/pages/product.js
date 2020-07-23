@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Context } from "../context";
 import { Link } from "react-router-dom";
+import Reviews from "../components/reviews";
 
 export default class Product extends Component {
   state = {
@@ -40,23 +41,33 @@ export default class Product extends Component {
     const [mainImg, ...defaultImg] = pictures;
     console.log(defaultImg);
     return (
-      <>
+      <div className="row">
         <div className="single-product-image-gallery">
-          <ul>
+          <ul className="single-product-image-gallery">
             {defaultImg.map((el, id) => {
-              return <img key={id} src={el.fields.file.url} alt={name} />;
+              return (
+                <img
+                  className="single-product-image"
+                  key={id}
+                  src={el.fields.file.url}
+                  alt={name}
+                />
+              );
             })}
           </ul>
         </div>
-        <div className="single-product-image">
-          <img src={mainImg.fields.file.url} alt={name} />;
+        <div>
+          <img
+            className="single-image"
+            src={mainImg.fields.file.url}
+            alt={name}
+          />
         </div>
         <div className="single-product-details-info">
           <h2 className="single-product-title">{descr}</h2>
-          <p>stars: {stars}</p>
-          <p>reviews: {reviews}</p>
-          <p className="single-product-price">
-            {price}${" "}
+          <Reviews stars={stars} reviews={reviews} />
+          <p className="single-product-price-2 ">
+            {price}$
             {discount && (
               <p className="single-product-discount-price">
                 {((price * 100) / (100 - discount)).toFixed(2)}$
@@ -67,7 +78,7 @@ export default class Product extends Component {
             With free Worldwide delivery and FREE Returns
           </p>
           <div className="single-product-size">
-            <h3>Size:</h3>
+            Size:{"   "}
             <select
               id="product-size"
               name="product-size"
@@ -97,9 +108,13 @@ export default class Product extends Component {
             <p>{description}</p>
           </div>
         </div>
-        <h2>You may also like</h2>
-        <h2>Customers who bought this product also bought</h2>
-      </>
+        <div style={{ display: "flex-block" }}>
+          <h2 style={{ display: "block" }}>You may also like</h2>
+          <h2 style={{ display: "block" }}>
+            Customers who bought this product also bought
+          </h2>
+        </div>
+      </div>
     );
   }
 }

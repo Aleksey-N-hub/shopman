@@ -1,10 +1,21 @@
+/********* Reusable ************/
+.row {
+  max-width: 1140px;
+  margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+}
+
 /********* Product-cell ************/
 .product-cell {
   float: left;
   width: 20%;
-  padding-left: 10.5px;
-  padding-right: 10.5px;
-  margin-bottom: 25px;
+  margin: 0 10.5px 25px 10.5px;
   text-align: left;
   color: #767676;
   cursor: pointer;
@@ -121,4 +132,62 @@ b {
 }
 .stars {
   color: #e0c239;
+}
+
+.single-product-image-gallery {
+  float: left;
+  width: 80px;
+}
+.single-product-image {
+  margin-top: 0;
+  background: no-repeat;
+  object-fit: contain;
+  padding-left: 0;
+  margin-left: 0;
+  width: 58px;
+  height: 70px;
+  margin-bottom: 20px;
+}
+ul {
+  padding-inline-start: 0;
+}
+
+.single-image {
+  float: left;
+  max-width: 600px;
+  max-height: 800px;
+  object-fit: contain;
+}
+
+.single-product-details-info {
+  float: left;
+  width: 400px;
+  font-weight: 300;
+  margin-left: 30px;
+}
+.single-product-title {
+  font-size: 26px;
+  line-height: 32px;
+  /* font-family: "Exo 2", Arial, sans-serif; */
+}
+
+.single-product-price-2 {
+  display: inline-block;
+
+  font-size: 32px;
+  padding: 0 10px;
+  vertical-align: bottom;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #d0021b;
+  line-height: 40px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.single-product-details-info .single-product-discount-price {
+  display: inline-block;
+  float: unset;
+  margin: 0;
+  margin-left: 20px;
 }

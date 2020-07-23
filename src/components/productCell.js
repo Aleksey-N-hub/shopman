@@ -6,7 +6,7 @@ import { FiShoppingCart, FiHeart } from "react-icons/fi";
 
 export default function category(props) {
   return (
-    <div className="product-cell box-product" onClick={props.clicked}>
+    <div className="product-cell box-product">
       {props.discount && <Discount discount={props.discount} />}
       {props.new && <New />}
       <img src={props.src} className="product-photo" />
