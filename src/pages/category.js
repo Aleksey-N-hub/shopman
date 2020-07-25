@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Context } from "../context";
 import { Link } from "react-router-dom";
-import ProductList from "../containers/productList";
+import ProductList from "../components/productList";
 
 export default class Product extends Component {
   state = {
@@ -25,9 +25,7 @@ export default class Product extends Component {
 
     return (
       <section className="categoryList">
-        <div className="categories-main">
-          <ProductList products={products} />
-        </div>
+        <ProductList products={products} />
       </section>
     );
   }

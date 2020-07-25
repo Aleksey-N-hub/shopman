@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 // import Featured from "./components/featured";
 import Product from "./pages/product";
-import Category from "./pages/category";
+import Category from "./components/categoryContainer";
 import { Route, Switch } from "react-router-dom";
 
 function App() {

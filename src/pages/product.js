@@ -13,7 +13,6 @@ export default class Product extends Component {
   render() {
     const { getProduct } = this.context;
     const product = getProduct(this.state.slug);
-    // const category = product;
     if (!product) {
       return (
         <div>
@@ -25,8 +24,6 @@ export default class Product extends Component {
     const {
       alsoBought,
       alsoLike,
-      categories,
-      color,
       descr,
       description,
       discount,
@@ -39,7 +36,9 @@ export default class Product extends Component {
       stars,
     } = product;
     const [mainImg, ...defaultImg] = pictures;
-    console.log(defaultImg);
+    const like = getAlsoLiked(alsoLike);
+    const bought = getAlsoBought(alsoBought);
+
     return (
       <div className="row">
         <div className="single-product-image-gallery">
