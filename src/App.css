@@ -45,6 +45,8 @@ b {
 }
 .label-content {
   cursor: default;
+  display: flex;
+  justify-content: space-between;
   color: #fff;
   text-align: center;
   padding: 2px 5px 4px 5px;

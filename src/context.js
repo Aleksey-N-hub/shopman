@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Client from "./Contentful";
+import New from "./components/new";
 
 const Context = React.createContext();
 
@@ -9,8 +10,9 @@ class Provider extends Component {
     sortedProducts: [],
     featuredProducts: [],
     loading: true,
-    price: 0,
-    size: "all",
+    maxPrice: 0,
+    minPrice: 0,
+    size: "",
     new: false,
     discount: 0,
     colour: "",
@@ -34,11 +36,20 @@ class Provider extends Component {
 
       let products = this.formatData(response.items);
       let maxPrice = Math.max(...products.map((el) => el.price));
+      let size = [];
+      console.log(products);
+      products.map((el) => {
+        el.size.map((e) => {
+          size.push(e);
+        });
+      });
+      size = [...new Set(size)];
       this.setState({
         products,
         sortedProducts: products,
         loading: false,
-        price: maxPrice,
+        maxPrice,
+        size,
       });
     } catch (error) {
       console.log(error);
@@ -61,33 +72,24 @@ class Provider extends Component {
     return tempItems;
   };
 
-  sorting = (order, products) => {
-    let { sortedProducts } = this.state;
-    let tempProducts = [...sortedProducts];
+  sorting = (event) => {
+    let { products } = this.state;
+    let tempProducts = [...products];
     console.log("started sorting");
-    switch (order) {
-      case "low": {
-        console.log(tempProducts.price);
-        tempProducts = tempProducts.sort((a, b) =>
-          a.price > b.price ? 1 : -1
-        );
-        return tempProducts;
-      }
-      case "high":
-        return (tempProducts = tempProducts.sort((a, b) =>
-          a.price > b.price
-            ? 1
-            : a.price === b.price
-            ? a.price > b.price
-              ? 1
-              : -1
-            : -1
-        ));
-      case "popular":
-        return tempProducts.sort((a, b) => a.price - b.price);
-      case "new":
-        return tempProducts.sort((a, b) => a.price - b.price);
+    if (event.target.value === "low") {
+      tempProducts = tempProducts.sort((a, b) => (a.price > b.price ? 1 : -1));
+    } else if (event.target.value === "high") {
+      tempProducts = tempProducts.sort((a, b) => (a.price < b.price ? 1 : -1));
+    } else if (event.target.value === "popular") {
+      tempProducts = tempProducts.sort((a, b) =>
+        a.reviews < b.reviews ? 1 : -1
+      );
+    } else if (event.target.value === "sale") {
+      tempProducts = tempProducts.sort((a, b) =>
+        a.discount < b.discount ? 1 : -1
+      );
     }
+
     this.setState({ sortedProducts: tempProducts });
   };
 
@@ -118,6 +120,68 @@ class Provider extends Component {
     return product;
   };
 
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = event.target.name;
+    console.log(target);
+    console.log(value);
+    console.log(name);
+    this.setState(
+      {
+        [name]: value,
+      },
+      this.filterProducts
+    );
+  };
+
+  filterProducts = () => {
+    let {
+      products,
+      price,
+      size,
+      discount,
+      colour,
+      material,
+      reviews,
+    } = this.state;
+    // all the rooms
+    let tempProducts = [...products];
+    //transform value
+    price = parseInt(price);
+
+    //filter by size
+    if (size !== "all") {
+      // tempProducts = tempProducts.filter((product) => product.size.filter(el => el.) === size);
+    }
+
+    tempProducts = tempProducts.filter((product) => product.price <= price);
+    // //filter by capacity
+    // if (capacity !== 1) {
+    //   tempRooms = tempRooms.filter((room) => room.capacity >= capacity);
+    // }
+    // //filter by price
+    // tempRooms = tempRooms.filter((room) => room.price <= price);
+
+    // //filter by size
+    // tempRooms = tempRooms.filter(
+    //   (room) => room.size >= minSize && room.size <= maxSize
+    // );
+
+    // //filter by breakfast
+    // if (breakfast) {
+    //   tempRooms = tempRooms.filter((room) => room.breakfast === true);
+    // }
+
+    // //filter by pets
+    // if (pets) {
+    //   tempRooms = tempRooms.filter((room) => room.pets === true);
+    // }
+
+    //change state
+    this.setState({ sortedProducts: tempProducts });
+  };
+
   render() {
     return (
       <Context.Provider
@@ -128,6 +192,7 @@ class Provider extends Component {
           sorting: this.sorting,
           getAlsoBought: this.getAlsoBought,
           getAlsoLiked: this.getAlsoLiked,
+          handleChange: this.handleChange,
         }}
       >
         {this.props.children}

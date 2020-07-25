@@ -15,7 +15,6 @@ export default class Product extends Component {
   render() {
     const { getProduct, getAlsoBought, getAlsoLiked } = this.context;
     const product = getProduct(this.state.slug);
-    // const category = product;
     if (!product) {
       return (
         <div>
@@ -27,8 +26,6 @@ export default class Product extends Component {
     const {
       alsoBought,
       alsoLike,
-      categories,
-      color,
       descr,
       description,
       discount,
