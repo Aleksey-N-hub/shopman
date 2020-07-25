@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Client from "./Contentful";
-import New from "./components/new";
+// import New from "./components/new";
 
 const Context = React.createContext();
 
@@ -38,8 +38,8 @@ class Provider extends Component {
       let maxPrice = Math.max(...products.map((el) => el.price));
       let size = [];
       console.log(products);
-      products.map((el) => {
-        el.size.map((e) => {
+      products.forEach((el) => {
+        el.size.forEach((e) => {
           size.push(e);
         });
       });
@@ -140,10 +140,10 @@ class Provider extends Component {
       products,
       price,
       size,
-      discount,
-      colour,
-      material,
-      reviews,
+      // discount,
+      // colour,
+      // material,
+      // reviews,
     } = this.state;
     // all the rooms
     let tempProducts = [...products];

@@ -14,11 +14,11 @@ export default function ProductsFilter({ products }) {
     price,
     size,
     minPrice,
-    maxPrice,
-    discount,
-    colour,
-    reviews,
-    category,
+    // maxPrice,
+    // discount,
+    // colour,
+    // reviews,
+    // category,
   } = context;
   //   let sizes = getUnique(products, "size");
   let sizes = ["all", ...size];

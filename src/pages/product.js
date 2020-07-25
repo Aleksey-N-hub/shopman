@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Context } from "../context";
 import { Link } from "react-router-dom";
 import Reviews from "../components/reviews";
-import ProductCell from "../components/productCell";
 import SliderCarousel from "../containers/sliderCarousel";
+// import ReactImageZoom from "react-image-zoom";
+import ReactImageMagnify from "react-image-magnify";
 
 export default class Product extends Component {
   state = {
@@ -43,6 +44,14 @@ export default class Product extends Component {
     console.log(like);
     console.log(bought);
 
+    const handleClick = (event) => {
+      console.log(event);
+      console.log(event.src);
+    };
+    const changeIt = (img) => {
+      var name = img.src;
+      console.log(name);
+    };
     return (
       <div className="row">
         <div className="images">
@@ -50,6 +59,8 @@ export default class Product extends Component {
             {defaultImg.map((el, id) => {
               return (
                 <img
+                  value={id}
+                  onClick="changeIt(this)"
                   className="image"
                   key={id}
                   src={el.fields.file.url}
@@ -58,11 +69,26 @@ export default class Product extends Component {
               );
             })}
           </ul>
-          <img
+          <ReactImageMagnify
+            className="single-image"
+            {...{
+              smallImage: {
+                alt: "Wr",
+                isFluidWidth: true,
+                src: mainImg.fields.file.url,
+              },
+              largeImage: {
+                src: mainImg.fields.file.url,
+                width: 1200,
+                height: 1800,
+              },
+            }}
+          />
+          {/* <img
             className="single-image"
             src={mainImg.fields.file.url}
             alt={name}
-          />
+          /> */}
         </div>
         <div className="single-product-details-info">
           <h2 className="single-product-title">{descr}</h2>
@@ -97,7 +123,7 @@ export default class Product extends Component {
           <div className="single-product-description">
             <h3>Materials:</h3>
             {materials.map((el, id) => {
-              if (id % 2 == 0) {
+              if (id % 2 === 0) {
                 return (
                   <p key={id} className="material">
                     {el} ------------------ {materials[id + 1]}%
@@ -109,6 +135,7 @@ export default class Product extends Component {
             <p>{description}</p>
           </div>
         </div>
+
         <div style={{ display: "flex-block" }}>
           <h2
             style={{ display: "block", fontSize: "200%", textAlign: "center" }}
