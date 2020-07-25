@@ -3,7 +3,7 @@ import { Context } from "../context";
 import { Link } from "react-router-dom";
 import ProductList from "../containers/productList";
 
-export default class Product extends Component {
+export default class Category extends Component {
   state = {
     category: this.props.match.params.slug,
   };

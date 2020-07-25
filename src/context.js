@@ -19,8 +19,8 @@ class Provider extends Component {
     reviews: 0,
     category: false,
     featured: false,
-    alsoBought: 0,
-    alsoLike: 0,
+    alsoBought: [],
+    alsoLike: [],
   };
 
   getData = async () => {
@@ -91,6 +91,17 @@ class Provider extends Component {
     this.setState({ sortedProducts: tempProducts });
   };
 
+  getAlsoBought = (num) => {
+    let tempProducts = [...this.state.products];
+    const products = tempProducts.filter((el) => el.alsoBought === num);
+    return products;
+  };
+  getAlsoLiked = (num) => {
+    let tempProducts = [...this.state.products];
+    const products = tempProducts.filter((el) => el.alsoBought === num);
+    return products;
+  };
+
   getCategoryProducts = (slug) => {
     let tempProducts = [...this.state.products];
     console.log(slug, tempProducts);
@@ -115,6 +126,8 @@ class Provider extends Component {
           getProduct: this.getProduct,
           getCategoryProducts: this.getCategoryProducts,
           sorting: this.sorting,
+          getAlsoBought: this.getAlsoBought,
+          getAlsoLiked: this.getAlsoLiked,
         }}
       >
         {this.props.children}

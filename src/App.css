@@ -139,11 +139,8 @@ b {
   width: 80px;
 }
 .single-product-image {
-  margin-top: 0;
   background: no-repeat;
   object-fit: contain;
-  padding-left: 0;
-  margin-left: 0;
   width: 58px;
   height: 70px;
   margin-bottom: 20px;

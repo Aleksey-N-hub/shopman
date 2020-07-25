@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Context } from "../context";
 import { Link } from "react-router-dom";
 import Reviews from "../components/reviews";
+import ProductCell from "../components/productCell";
+import SliderCarousel from "../containers/sliderCarousel";
 
 export default class Product extends Component {
   state = {
@@ -11,7 +13,7 @@ export default class Product extends Component {
   static contextType = Context;
 
   render() {
-    const { getProduct } = this.context;
+    const { getProduct, getAlsoBought, getAlsoLiked } = this.context;
     const product = getProduct(this.state.slug);
     // const category = product;
     if (!product) {
@@ -39,7 +41,11 @@ export default class Product extends Component {
       stars,
     } = product;
     const [mainImg, ...defaultImg] = pictures;
-    console.log(defaultImg);
+    const like = getAlsoLiked(alsoLike);
+    const bought = getAlsoBought(alsoBought);
+    console.log(like);
+    console.log(bought);
+
     return (
       <div className="row">
         <div className="single-product-image-gallery">
@@ -109,10 +115,19 @@ export default class Product extends Component {
           </div>
         </div>
         <div style={{ display: "flex-block" }}>
-          <h2 style={{ display: "block" }}>You may also like</h2>
-          <h2 style={{ display: "block" }}>
+          <h2
+            style={{ display: "block", fontSize: "200%", textAlign: "center" }}
+          >
+            You may also like
+          </h2>
+          <SliderCarousel products={like} />
+
+          <h2
+            style={{ display: "block", fontSize: "200%", textAlign: "center" }}
+          >
             Customers who bought this product also bought
           </h2>
+          <SliderCarousel products={bought} />
         </div>
       </div>
     );
