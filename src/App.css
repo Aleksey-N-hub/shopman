@@ -11,30 +11,30 @@ h4 {
   font-weight: 300;
 }
 
+body {
+  font-size: 20px;
+}
+
+ul {
+  padding-inline-start: 0;
+}
+
+b {
+  font-weight: 700;
+}
+
 /********* Product-cell ************/
 .product-cell {
   float: left;
-  width: 20%;
-  margin: 0 10.5px 25px 10.5px;
+  width: 18%;
+  margin: 0 1% 2% 1%;
   text-align: left;
   color: #767676;
   cursor: pointer;
-  transition: all 0.5s;
-  transition-property: all;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
-  transition-delay: 0s;
 }
 
 .product-photo {
-  margin-bottom: 7px;
-  height: 330px;
   width: 100%;
-  max-width: 100%;
-
-  /* background-repeat: no-repeat; */
-  width: 300px;
-  height: 400px;
   object-fit: contain;
 }
 
@@ -42,51 +42,34 @@ h4 {
 .discount-main {
   background-color: #ec3f34;
   position: absolute;
-
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding-left: 0;
-  list-style: none;
 }
 .label-content {
   cursor: default;
   color: #fff;
   text-align: center;
-  padding: 2px 7px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  font-family: "Exo 2";
-  font-size: 12px;
-  line-height: 20px;
-  margin-bottom: 5px;
-  vertical-align: bottom;
+  padding: 2px 5px 4px 5px;
+  font-weight: 600;
+  font-size: 80%;
 }
 
 .new-main {
   background-color: #aac05c;
-  position: absolute;
-  font-size: 12px;
-  line-height: 20px;
-  margin-left: 255px;
-  padding-left: 0;
-  list-style: none;
+  position: relative;
   float: right;
 }
 
+/********* CART & LIKE ICONS ************/
 .on-photo {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: -57px;
-  margin-bottom: 15px;
+  margin-top: -20%;
   z-index: 1;
-  min-height: 42px;
 }
 
 .on-photo-icons {
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 15px 2px;
-  text-align: center;
+  padding: 12px 2px;
   width: 42px;
   border-radius: 50%;
 }
@@ -94,6 +77,8 @@ h4 {
   color: #f46611;
   box-shadow: 0 2px 4px 0 rgba(45, 45, 45, 0.14);
 }
+
+/********* PRODUCT-NAME ************/
 .product-name {
   font-weight: 300;
 }
@@ -102,82 +87,63 @@ h4 {
   color: #f46611;
 }
 
-b {
-  font-weight: 700;
-}
 .single-product-price {
-  padding: 0 10px;
-  vertical-align: bottom;
+  padding: 0 2%;
   display: flex;
   justify-content: space-between;
-  vertical-align: middle;
-  margin-top: 0;
-  margin-bottom: 0;
-  text-align: center;
-  font-size: 20px;
-  line-height: 25px;
   color: #d0021b;
-  line-height: 40px;
   font-weight: 700;
   cursor: default;
 }
 .single-product-discount-price {
   color: #a1a1a1;
-  float: right;
   text-decoration: line-through;
 }
 
 .reviews {
   display: flex;
+  cursor: default;
 }
 .stars {
   color: #e0c239;
 }
 
-.single-product-image-gallery {
-  float: left;
-  width: 80px;
+.images {
+  width: 50%;
 }
-.single-product-image {
+
+.image-gallery {
+  float: left;
+  width: 15%;
+}
+.image {
   background: no-repeat;
   object-fit: contain;
-  width: 58px;
-  height: 70px;
+  width: 90%;
   margin-bottom: 20px;
-}
-ul {
-  padding-inline-start: 0;
 }
 
 .single-image {
   float: left;
-  max-width: 600px;
-  max-height: 800px;
+  max-width: 80%;
   object-fit: contain;
 }
 
 .single-product-details-info {
   float: left;
-  width: 400px;
+  width: 45%;
   font-weight: 300;
   margin-left: 30px;
 }
 .single-product-title {
-  font-size: 26px;
-  line-height: 32px;
-  /* font-family: "Exo 2", Arial, sans-serif; */
+  font-size: 140%;
 }
 
 .single-product-price-2 {
   display: inline-block;
-
-  font-size: 32px;
-  padding: 0 10px;
-  vertical-align: bottom;
-  margin-top: 0;
+  font-size: 170%;
   margin-bottom: 0;
   color: #d0021b;
-  line-height: 40px;
   font-weight: 700;
   cursor: default;
 }

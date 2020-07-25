@@ -48,12 +48,12 @@ export default class Product extends Component {
 
     return (
       <div className="row">
-        <div className="single-product-image-gallery">
-          <ul className="single-product-image-gallery">
+        <div className="images">
+          <ul className="image-gallery">
             {defaultImg.map((el, id) => {
               return (
                 <img
-                  className="single-product-image"
+                  className="image"
                   key={id}
                   src={el.fields.file.url}
                   alt={name}
@@ -61,8 +61,6 @@ export default class Product extends Component {
               );
             })}
           </ul>
-        </div>
-        <div>
           <img
             className="single-image"
             src={mainImg.fields.file.url}
