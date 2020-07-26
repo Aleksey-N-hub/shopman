@@ -5,6 +5,7 @@ import Reviews from "../components/reviews";
 import SliderCarousel from "../containers/sliderCarousel";
 // import ReactImageZoom from "react-image-zoom";
 import ReactImageMagnify from "react-image-magnify";
+import Carousel from "../components/carousel";
 
 export default class Product extends Component {
   state = {
@@ -53,37 +54,23 @@ export default class Product extends Component {
       console.log(name);
     };
     return (
-      <div className="row">
+      <div className="">
         <div className="images">
+          <Carousel pictures={pictures} />
           <ul className="image-gallery">
-            {defaultImg.map((el, id) => {
+            {/* {defaultImg.map((el, id) => {
               return (
                 <img
-                  value={id}
-                  onClick="changeIt(this)"
-                  className="image"
-                  key={id}
-                  src={el.fields.file.url}
-                  alt={name}
+                value={id}
+                className="image"
+                key={id}
+                src={el.fields.file.url}
+                alt={name}
                 />
-              );
-            })}
+                );
+              })} */}
           </ul>
-          <ReactImageMagnify
-            className="single-image"
-            {...{
-              smallImage: {
-                alt: "Wr",
-                isFluidWidth: true,
-                src: mainImg.fields.file.url,
-              },
-              largeImage: {
-                src: mainImg.fields.file.url,
-                width: 1200,
-                height: 1800,
-              },
-            }}
-          />
+
           {/* <img
             className="single-image"
             src={mainImg.fields.file.url}

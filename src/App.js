@@ -11,7 +11,7 @@ function App() {
     <>
       <Route path="/products/:slug" component={Product} />
       <Route path="/categories/:slug" component={Category} />
-      <Route path="/" exact component={Images} />
+      {/* <Route path="/" exact component={Images} /> */}
     </>
   );
 }
