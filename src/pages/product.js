@@ -30,14 +30,13 @@ export default class Product extends Component {
       description,
       discount,
       materials,
-      name,
       pictures,
       price,
       reviews,
       size,
       stars,
     } = product;
-    const [mainImg, ...defaultImg] = pictures;
+
     const like = getAlsoLiked(alsoLike);
     const bought = getAlsoBought(alsoBought);
     console.log(like);

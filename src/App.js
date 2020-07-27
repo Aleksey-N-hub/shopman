@@ -10,7 +10,7 @@ function App() {
     <>
       <NavBar />
       <Route path="/products/:slug" component={Product} />
-      <Route path="/categories/:slug" component={Category} />
+      <Route path="/clothing/:slug" component={Category} />
     </>
   );
 }
