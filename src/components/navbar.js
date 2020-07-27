@@ -8,6 +8,16 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 
 export default class navbar extends Component {
+  state = {
+    activeSearch: false,
+  };
+  handleclick = () => {
+    this.setState((prevState) => {
+      return {
+        activeSearch: !prevState.activeSearch,
+      };
+    });
+  };
   render() {
     return (
       <>
@@ -89,9 +99,13 @@ export default class navbar extends Component {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <Nav.Link eventKey={2}>
-            <FiSearch className="navbar-icon" />
-          </Nav.Link>
+          {!this.state.activeSearch ? (
+            <Nav.Link eventKey={2} onClick={this.handleclick}>
+              <FiSearch className="navbar-icon" />
+            </Nav.Link>
+          ) : (
+            <FaRegHeart onClick={this.handleclick} />
+          )}
           <Nav.Link href="/profile">
             <FaRegUser className="navbar-icon" />
           </Nav.Link>
