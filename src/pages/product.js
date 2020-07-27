@@ -3,8 +3,6 @@ import { Context } from "../context";
 import { Link } from "react-router-dom";
 import Reviews from "../components/reviews";
 import SliderCarousel from "../containers/sliderCarousel";
-// import ReactImageZoom from "react-image-zoom";
-import ReactImageMagnify from "react-image-magnify";
 import Carousel from "../components/carousel";
 
 export default class Product extends Component {
@@ -19,7 +17,7 @@ export default class Product extends Component {
     const product = getProduct(this.state.slug);
     if (!product) {
       return (
-        <div>
+        <div className="product">
           <h2>no such product could be found...</h2>
           <Link>Back to</Link>
         </div>
@@ -54,28 +52,9 @@ export default class Product extends Component {
       console.log(name);
     };
     return (
-      <div className="">
+      <div className="product">
         <div className="images">
           <Carousel pictures={pictures} />
-          <ul className="image-gallery">
-            {/* {defaultImg.map((el, id) => {
-              return (
-                <img
-                value={id}
-                className="image"
-                key={id}
-                src={el.fields.file.url}
-                alt={name}
-                />
-                );
-              })} */}
-          </ul>
-
-          {/* <img
-            className="single-image"
-            src={mainImg.fields.file.url}
-            alt={name}
-          /> */}
         </div>
         <div className="single-product-details-info">
           <h2 className="single-product-title">{descr}</h2>
