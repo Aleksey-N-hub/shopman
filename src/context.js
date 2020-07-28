@@ -100,7 +100,7 @@ class Provider extends Component {
   };
   getAlsoLiked = (num) => {
     let tempProducts = [...this.state.products];
-    const products = tempProducts.filter((el) => el.alsoBought === num);
+    const products = tempProducts.filter((el) => el.alsoLike === num);
     return products;
   };
 

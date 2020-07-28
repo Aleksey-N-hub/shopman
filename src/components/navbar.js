@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { FaRegHeart, FaRegUser } from "react-icons/fa";
 import { FiShoppingCart, FiSearch } from "react-icons/fi";
 import Accordion from "react-bootstrap/Accordion";
+import FormControl from "react-bootstrap/FormControl";
 import Card from "react-bootstrap/Card";
 
 export default class navbar extends Component {
@@ -99,13 +100,13 @@ export default class navbar extends Component {
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          {!this.state.activeSearch ? (
-            <Nav.Link eventKey={2} onClick={this.handleclick}>
-              <FiSearch className="navbar-icon" />
-            </Nav.Link>
-          ) : (
-            <FaRegHeart onClick={this.handleclick} />
+          {this.state.activeSearch && (
+            <input type="text" placeholder="Search" className="mr-sm-2" />
           )}
+          <Nav.Link eventKey={2} onClick={this.handleclick}>
+            <FiSearch className="navbar-icon" />
+          </Nav.Link>
+
           <Nav.Link href="/profile">
             <FaRegUser className="navbar-icon" />
           </Nav.Link>

@@ -131,7 +131,7 @@ b {
 
 /********* PRODUCT-NAME ************/
 .product {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 
 .product-name {
@@ -212,6 +212,16 @@ b {
   float: unset;
   margin: 0;
   margin-left: 20px;
+}
+
+#controlled-tab-example-tab-Description,
+#controlled-tab-example-tab-Returns,
+#controlled-tab-example-tab-Size,
+#controlled-tab-example-tab-Product {
+  color: #222;
+}
+.controlledTabs {
+  color: unset;
 }
 
 /*!
@@ -4690,7 +4700,7 @@ input[type="button"].btn-block {
 }
 
 .nav-link {
-  display: block;
+  display: inline-block;
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
   text-decoration: none;

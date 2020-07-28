@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Reviews from "../components/reviews";
 import SliderCarousel from "../containers/sliderCarousel";
 import Carousel from "../components/carousel";
+import ControlledTabs from "../components/controlledTabs";
 
 export default class Product extends Component {
   state = {
@@ -100,13 +101,13 @@ export default class Product extends Component {
             <p>{description}</p>
           </div>
         </div>
-
         <div style={{ display: "flex-block" }}>
           <h2
             style={{ display: "block", fontSize: "200%", textAlign: "center" }}
           >
             You may also like
           </h2>
+          <ControlledTabs />
           <SliderCarousel products={like} />
 
           <h2
