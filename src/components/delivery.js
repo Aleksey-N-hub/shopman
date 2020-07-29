@@ -2,6 +2,15 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 
 export default function delivery() {
+  const getDate = (deliveryTimeMin, deliveryTimeMax) => {
+    let d = new Date();
+    let m = new Date();
+    let day = d.getDate();
+    d.setDate(day + deliveryTimeMin);
+    m.setDate(day + deliveryTimeMax);
+    return `${d.toDateString()} - ${m.toDateString()}`;
+  };
+
   return (
     <div className="description-field">
       <strong>
@@ -37,43 +46,43 @@ export default function delivery() {
             <td>Australia</td>
             <td>7-14 business days</td>
             <td>£9.99</td>
-            <td>Thu 6th August - Fri 14th August</td>
+            <td>{getDate(7, 14)}</td>
           </tr>
           <tr>
             <td>Canada</td>
             <td>7-14 business days</td>
             <td>£7.99</td>
-            <td>Thu 6th August - Fri 14th August</td>
+            <td>{getDate(7, 14)}</td>
           </tr>
           <tr>
             <td>Russia</td>
             <td>7-14 business days</td>
             <td>£7.99</td>
-            <td>Thu 6th August - Fri 14th August</td>
+            <td>{getDate(7, 14)}</td>
           </tr>
           <tr>
             <td>USA</td>
-            <td>7-14 business days</td>
+            <td>3-8 business days</td>
             <td>£7.99</td>
-            <td>Thu 6th August - Fri 14th August</td>
+            <td>{getDate(3, 8)}</td>
           </tr>
           <tr>
             <td>France</td>
             <td>5-10 business days</td>
             <td>£1.99</td>
-            <td>Tue 4th August - Mon 10th August</td>
+            <td>{getDate(5, 10)}</td>
           </tr>
           <tr>
             <td>Germany</td>
             <td>5-10 business days</td>
             <td>£0.99</td>
-            <td>Tue 4th August - Mon 10th August</td>
+            <td>{getDate(5, 10)}</td>
           </tr>
           <tr>
             <td>Rest of World</td>
             <td>7-14 business days</td>
             <td>£7.99</td>
-            <td>Thu 6th August - Fri 14th August</td>
+            <td>{getDate(7, 14)}</td>
           </tr>
         </tbody>
       </Table>

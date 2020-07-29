@@ -43,6 +43,10 @@ export default class Product extends Component {
     const bought = getAlsoBought(alsoBought);
     console.log(like);
     console.log(bought);
+    let d = new Date();
+    d.setDate(14);
+    // console.log(d.getDay());
+    console.log(d);
 
     const handleClick = (event) => {
       console.log(event);
