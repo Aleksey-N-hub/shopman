@@ -5,6 +5,7 @@ import Reviews from "../components/reviews";
 import SliderCarousel from "../containers/sliderCarousel";
 import Carousel from "../components/carousel";
 import ControlledTabs from "../components/controlledTabs";
+import { FiHeart } from "react-icons/fi";
 
 export default class Product extends Component {
   state = {
@@ -59,7 +60,9 @@ export default class Product extends Component {
           </div>
           <div className="single-product-details-info">
             <h2 className="single-product-title">{descr}</h2>
+            <br />
             <Reviews stars={stars} reviews={reviews} />
+            <br />
             <p className="single-product-price-2 ">
               {price}$
               {discount && (
@@ -68,9 +71,12 @@ export default class Product extends Component {
                 </p>
               )}
             </p>
+            <br />
+            <br />
             <p className="single-product-delivery">
               With free Worldwide delivery and FREE Returns
             </p>
+            <br />
             <div className="single-product-size">
               Size:{"   "}
               <select
@@ -87,22 +93,30 @@ export default class Product extends Component {
                 })}
               </select>
             </div>
+            <br />
+            <button className="product-button">ADD TO BAG</button>{" "}
+            <FiHeart className="on-photo-icons" />
           </div>
         </div>
         <ControlledTabs description={description} materials={materials} />
         <h2
           style={{
             textAlign: "center",
+            marginBottom: "40px",
           }}
         >
           You may also like
         </h2>
+
         <SliderCarousel products={like} />
         <h2
           style={{
             textAlign: "center",
+            marginBottom: "40px",
           }}
         >
+          <br />
+          <br />
           Customers who bought this product also bought
         </h2>
         <SliderCarousel products={bought} />

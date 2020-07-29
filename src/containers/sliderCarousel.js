@@ -27,8 +27,8 @@ export default function sliderCarousel(props) {
   const { products } = props;
   return (
     <>
-      <div>
-        <Carousel responsive={responsive} showDots={true}>
+      <div className="carousel-row">
+        <Carousel responsive={responsive}>
           {products.map((el, id) => {
             return (
               <Link to={`/products/${el.slug}`}>
