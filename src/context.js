@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Client from "./Contentful";
 // import New from "./components/new";
+import Axios from "axios";
 
 const Context = React.createContext();
 
@@ -23,6 +24,7 @@ class Provider extends Component {
     featured: false,
     alsoBought: [],
     alsoLike: [],
+    likes: [],
   };
 
   getData = async () => {
@@ -37,13 +39,13 @@ class Provider extends Component {
       let products = this.formatData(response.items);
       let maxPrice = Math.max(...products.map((el) => el.price));
       let size = [];
-      console.log(products);
       products.forEach((el) => {
         el.size.forEach((e) => {
           size.push(e);
         });
       });
       size = [...new Set(size)];
+
       this.setState({
         products,
         sortedProducts: products,
@@ -59,6 +61,92 @@ class Provider extends Component {
   componentDidMount() {
     this.getData();
   }
+
+  authStart = () => {
+    this.setState({ error: null, loading: true });
+  };
+
+  continueSigning = () => {
+    this.setState({ signing: true });
+  };
+
+  cancelSigning = () => {
+    this.setState({ signing: false });
+  };
+
+  authSuccess = (token, userId) => {
+    this.setState({
+      token,
+      userId,
+      error: null,
+      loading: false,
+      signing: false,
+    });
+  };
+
+  authFail = (error) => {
+    this.setState({ error, loading: false });
+  };
+
+  logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expirationDate");
+    localStorage.removeItem("userId");
+    this.setState({ token: null, userId: null });
+  };
+
+  checkAuthTimeout = (expirationTime) => {
+    setTimeout(() => {
+      this.logout();
+    }, expirationTime * 1000);
+  };
+
+  auth = (email, password, isSignup) => {
+    this.authStart();
+    const authData = {
+      email: email,
+      password: password,
+      returnSecureToken: true,
+    };
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCMSj3Rlu_3BIMXlNDfTGxCkdujfkyAoa8";
+    if (!isSignup) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCMSj3Rlu_3BIMXlNDfTGxCkdujfkyAoa8";
+    }
+    Axios.post(url, authData)
+      .then((response) => {
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.setItem("token", response.data.idToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("userId", response.data.localId);
+        this.authSuccess(response.data.idToken, response.data.localId);
+        this.checkAuthTimeout(response.data.expiresIn);
+      })
+      .catch((err) => {
+        this.authFail(err.response.data.error);
+      });
+  };
+
+  authCheckState = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      this.logout();
+    } else {
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
+      if (expirationDate <= new Date()) {
+        this.logout();
+      } else {
+        const userId = localStorage.getItem("userId");
+        this.authSuccess(token, userId);
+        this.checkAuthTimeout(
+          (expirationDate.getTime() - new Date().getTime()) / 1000
+        );
+      }
+    }
+  };
 
   formatData = (items) => {
     let tempItems = items.map((item) => {
@@ -135,6 +223,8 @@ class Provider extends Component {
     );
   };
 
+  likeProductHandler = (slug) => {};
+
   filterProducts = () => {
     let {
       products,
@@ -193,6 +283,7 @@ class Provider extends Component {
           getAlsoBought: this.getAlsoBought,
           getAlsoLiked: this.getAlsoLiked,
           handleChange: this.handleChange,
+          onAuth: this.auth,
         }}
       >
         {this.props.children}

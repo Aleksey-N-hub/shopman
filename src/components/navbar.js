@@ -7,11 +7,22 @@ import { FiShoppingCart, FiSearch } from "react-icons/fi";
 import Accordion from "react-bootstrap/Accordion";
 import FormControl from "react-bootstrap/FormControl";
 import Card from "react-bootstrap/Card";
+import Modal from "./modal";
+import Auth from "../containers/auth";
 
 export default class navbar extends Component {
   state = {
     activeSearch: false,
+    show: false,
   };
+  showModalHandler = () => {
+    this.setState((prevState) => {
+      return {
+        show: !prevState.show,
+      };
+    });
+  };
+
   handleclick = () => {
     this.setState((prevState) => {
       return {
@@ -107,9 +118,9 @@ export default class navbar extends Component {
             <FiSearch className="navbar-icon" />
           </Nav.Link>
 
-          <Nav.Link href="/profile">
-            <FaRegUser className="navbar-icon" />
-          </Nav.Link>
+          {/* <Nav.Link href="/profile" > */}
+          <FaRegUser className="navbar-icon" onClick={this.showModalHandler} />
+          {/* </Nav.Link> */}
           <Nav.Link href="/cart">
             <FiShoppingCart className="navbar-icon" />
           </Nav.Link>
@@ -118,6 +129,9 @@ export default class navbar extends Component {
           </Nav.Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         </Navbar>
+        <Modal show={this.state.show} modalClosed={this.showModalHandler}>
+          <Auth />
+        </Modal>
       </>
     );
   }

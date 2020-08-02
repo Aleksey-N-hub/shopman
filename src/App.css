@@ -230,6 +230,110 @@ b {
   margin: auto;
 }
 
+/********* SIGNIN ************/
+
+.error-message {
+  margin: 10px 0px;
+  padding: 12px;
+  color: #d8000c;
+  background-color: #ffd2d2;
+}
+
+.sign-form {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 3px #ccc;
+  border: 1px solid #eee;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+form .label {
+  font-size: 1em;
+  color: #ceaee8;
+  margin-right: 13px;
+}
+/********* BACKDROP ************/
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 160;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-false {
+  transform: translateY(-100vh);
+  opacity: 0;
+  border-radius: 5px;
+  position: fixed;
+  z-index: 500;
+  background-color: #e7e7f6;
+  box-sizing: border-box;
+  width: 60%;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px black;
+  left: 20%;
+  top: 25%;
+  transition: all 0.5s ease;
+}
+
+.modal-visible {
+  border-radius: 5px;
+  position: fixed;
+  z-index: 500;
+  background-color: #e7e7f6;
+  box-sizing: border-box;
+  width: 60%;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px black;
+  left: 20%;
+  top: 25%;
+  transition: all 0.5s ease;
+  transform: translateY(10px);
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+/**************** INPUT ****************/
+
+.input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.label {
+  font-weight: normal;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.input-element {
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-element:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.invalid {
+  border: 1px solid salmon;
+  background-color: #ffd2d2;
+}
+
 /********* PRODUCT-DESCRIPTION ************/
 .description {
   width: 90%;
