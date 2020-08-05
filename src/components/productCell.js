@@ -11,8 +11,8 @@ export default function category(props) {
       {props.new && <New />}
       <img src={props.src} className="product-photo" />
       <div className="on-photo">
-        <FiShoppingCart className="on-photo-icons" />
-        <FiHeart className="on-photo-icons" />
+        <FiShoppingCart className="on-photo-icons" onClick={props.cart} />
+        <FiHeart className="on-photo-icons" onClick={props.like} />
       </div>
       <h5 className="product-name">
         <b>{props.name}</b>

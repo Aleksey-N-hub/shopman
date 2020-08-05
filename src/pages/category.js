@@ -11,7 +11,12 @@ export default class Category extends Component {
   static contextType = Context;
 
   render() {
-    const { getCategoryProducts } = this.context;
+    const {
+      getCategoryProducts,
+      likeProductHandler,
+      addToCartHandler,
+    } = this.context;
+
     const products = getCategoryProducts(this.state.category);
 
     if (!products) {
@@ -25,7 +30,11 @@ export default class Category extends Component {
 
     return (
       <section className="categoryList">
-        <ProductList products={products} />
+        <ProductList
+          products={products}
+          like={likeProductHandler}
+          cart={addToCartHandler}
+        />
       </section>
     );
   }

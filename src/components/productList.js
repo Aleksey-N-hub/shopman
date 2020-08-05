@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ProductCell from "./productCell";
 
 export default function productList(props) {
-  const { products } = props;
+  const { products, like, cart } = props;
   if (products.length === 0) {
     return (
       <div>
@@ -19,6 +19,8 @@ export default function productList(props) {
         return (
           <Link to={`/products/${el.slug}`} key={id}>
             <ProductCell
+              like={like}
+              cart={cart}
               discount={el.discount}
               new={el.new}
               src={el.pictures[0].fields.file.url}

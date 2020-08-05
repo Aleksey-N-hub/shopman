@@ -15,7 +15,13 @@ export default class Product extends Component {
   static contextType = Context;
 
   render() {
-    const { getProduct, getAlsoBought, getAlsoLiked } = this.context;
+    const {
+      getProduct,
+      getAlsoBought,
+      getAlsoLiked,
+      likeProductHandler,
+      addToCartHandler,
+    } = this.context;
     const product = getProduct(this.state.slug);
 
     if (!product) {
@@ -40,14 +46,10 @@ export default class Product extends Component {
       stars,
     } = product;
 
-    const like = getAlsoLiked(alsoLike);
-    const bought = getAlsoBought(alsoBought);
-    console.log(like);
-    console.log(bought);
+    const like = getAlsoLiked(alsoLike, this.state.slug);
+    const bought = getAlsoBought(alsoBought, this.state.slug);
     let d = new Date();
     d.setDate(14);
-    // console.log(d.getDay());
-    console.log(d);
 
     const handleClick = (event) => {
       console.log(event);
@@ -99,8 +101,16 @@ export default class Product extends Component {
               </select>
             </div>
             <br />
-            <button className="product-button">ADD TO BAG</button>{" "}
-            <FiHeart className="on-photo-icons" />
+            <button
+              className="product-button"
+              onClick={() => addToCartHandler(this.state.slug)}
+            >
+              ADD TO BAG
+            </button>
+            <FiHeart
+              className="on-photo-icons"
+              onClick={() => likeProductHandler(this.state.slug)}
+            />
           </div>
         </div>
         <ControlledTabs description={description} materials={materials} />

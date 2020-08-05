@@ -9,18 +9,27 @@ import FormControl from "react-bootstrap/FormControl";
 import Card from "react-bootstrap/Card";
 import Modal from "./modal";
 import Auth from "../containers/auth";
+import { Context } from "../context";
+import { withRouter } from "react-router-dom";
 
-export default class navbar extends Component {
+class navbar extends Component {
   state = {
     activeSearch: false,
     show: false,
   };
+
+  static contextType = Context;
   showModalHandler = () => {
-    this.setState((prevState) => {
-      return {
-        show: !prevState.show,
-      };
-    });
+    const { user } = this.context;
+    if (user) {
+      this.props.history.push("/profile");
+    } else {
+      this.setState((prevState) => {
+        return {
+          show: !prevState.show,
+        };
+      });
+    }
   };
 
   handleclick = () => {
@@ -31,8 +40,17 @@ export default class navbar extends Component {
     });
   };
   render() {
+    const { user, setUser, likes, cart } = this.context;
+    let auth = (
+      <Modal show={this.state.show} modalClosed={this.showModalHandler}>
+        <Auth user={user} setUser={setUser} clicked={this.showModalHandler} />
+      </Modal>
+    );
+    // if (user) {
+    //   auth = this.props.history.push("/profile");
+    // }
     return (
-      <>
+      <nav>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/">SHOPMAN</Navbar.Brand>
 
@@ -118,21 +136,28 @@ export default class navbar extends Component {
             <FiSearch className="navbar-icon" />
           </Nav.Link>
 
-          {/* <Nav.Link href="/profile" > */}
-          <FaRegUser className="navbar-icon" onClick={this.showModalHandler} />
-          {/* </Nav.Link> */}
+          <Nav.Link>
+            <FaRegUser
+              className="navbar-icon"
+              onClick={this.showModalHandler}
+            />
+          </Nav.Link>
           <Nav.Link href="/cart">
-            <FiShoppingCart className="navbar-icon" />
+            <div classname="navlink-2">
+              <FiShoppingCart className="navbar-icon" />
+              <span className="navbar-number">{cart?.length}</span>
+            </div>
           </Nav.Link>
           <Nav.Link eventKey={2} href="/like">
             <FaRegHeart className="navbar-icon" />
+            <span className="navbar-number">{likes?.length}</span>
           </Nav.Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         </Navbar>
-        <Modal show={this.state.show} modalClosed={this.showModalHandler}>
-          <Auth />
-        </Modal>
-      </>
+        {auth}
+      </nav>
     );
   }
 }
+
+export default withRouter(navbar);

@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, createContext, useContext, useReducer } from "react";
 import Client from "./Contentful";
 // import New from "./components/new";
 import Axios from "axios";
+import { auth } from "./components/firebase";
 
-const Context = React.createContext();
+const Context = createContext();
 
 class Provider extends Component {
   state = {
@@ -25,14 +26,23 @@ class Provider extends Component {
     alsoBought: [],
     alsoLike: [],
     likes: [],
+    cart: [],
+    user: null,
   };
 
   getData = async () => {
+    let likes = [],
+      cart = [];
+    if (localStorage.getItem("likes")) {
+      likes = [...JSON.parse(localStorage.getItem("likes"))];
+    }
+    if (localStorage.getItem("cart")) {
+      cart = [...JSON.parse(localStorage.getItem("cart"))];
+    }
+
     try {
       let response = await Client.getEntries({
         content_type: "shopman",
-        // order: "sys.createdAt",
-        // order: "fields.price",
       });
       console.log(response);
 
@@ -52,101 +62,28 @@ class Provider extends Component {
         loading: false,
         maxPrice,
         size,
+        cart,
+        likes,
       });
     } catch (error) {
       console.log(error);
     }
   };
 
+  setUser = () => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+      } else {
+        this.setState({ user: null });
+      }
+    });
+    return unsubscribe();
+  };
+
   componentDidMount() {
     this.getData();
   }
-
-  authStart = () => {
-    this.setState({ error: null, loading: true });
-  };
-
-  continueSigning = () => {
-    this.setState({ signing: true });
-  };
-
-  cancelSigning = () => {
-    this.setState({ signing: false });
-  };
-
-  authSuccess = (token, userId) => {
-    this.setState({
-      token,
-      userId,
-      error: null,
-      loading: false,
-      signing: false,
-    });
-  };
-
-  authFail = (error) => {
-    this.setState({ error, loading: false });
-  };
-
-  logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expirationDate");
-    localStorage.removeItem("userId");
-    this.setState({ token: null, userId: null });
-  };
-
-  checkAuthTimeout = (expirationTime) => {
-    setTimeout(() => {
-      this.logout();
-    }, expirationTime * 1000);
-  };
-
-  auth = (email, password, isSignup) => {
-    this.authStart();
-    const authData = {
-      email: email,
-      password: password,
-      returnSecureToken: true,
-    };
-    let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCMSj3Rlu_3BIMXlNDfTGxCkdujfkyAoa8";
-    if (!isSignup) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCMSj3Rlu_3BIMXlNDfTGxCkdujfkyAoa8";
-    }
-    Axios.post(url, authData)
-      .then((response) => {
-        const expirationDate = new Date(
-          new Date().getTime() + response.data.expiresIn * 1000
-        );
-        localStorage.setItem("token", response.data.idToken);
-        localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("userId", response.data.localId);
-        this.authSuccess(response.data.idToken, response.data.localId);
-        this.checkAuthTimeout(response.data.expiresIn);
-      })
-      .catch((err) => {
-        this.authFail(err.response.data.error);
-      });
-  };
-
-  authCheckState = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      this.logout();
-    } else {
-      const expirationDate = new Date(localStorage.getItem("expirationDate"));
-      if (expirationDate <= new Date()) {
-        this.logout();
-      } else {
-        const userId = localStorage.getItem("userId");
-        this.authSuccess(token, userId);
-        this.checkAuthTimeout(
-          (expirationDate.getTime() - new Date().getTime()) / 1000
-        );
-      }
-    }
-  };
 
   formatData = (items) => {
     let tempItems = items.map((item) => {
@@ -181,14 +118,18 @@ class Provider extends Component {
     this.setState({ sortedProducts: tempProducts });
   };
 
-  getAlsoBought = (num) => {
+  getAlsoBought = (num, slug) => {
     let tempProducts = [...this.state.products];
-    const products = tempProducts.filter((el) => el.alsoBought === num);
+    const products = tempProducts.filter(
+      (el) => el.alsoBought === num && el.slug !== slug
+    );
     return products;
   };
-  getAlsoLiked = (num) => {
+  getAlsoLiked = (num, slug) => {
     let tempProducts = [...this.state.products];
-    const products = tempProducts.filter((el) => el.alsoLike === num);
+    const products = tempProducts.filter(
+      (el) => el.alsoLike === num && el.slug !== slug
+    );
     return products;
   };
 
@@ -198,7 +139,6 @@ class Provider extends Component {
     const products = tempProducts.filter(
       (el) => el.categories.indexOf(slug) !== -1
     );
-    // this.setState({ sortedProducts: products });
     return products;
   };
 
@@ -223,7 +163,32 @@ class Provider extends Component {
     );
   };
 
-  likeProductHandler = (slug) => {};
+  likeProductHandler = (slug) => {
+    let tempProducts = [...this.state.products];
+    const product = tempProducts.find((el) => el.slug === slug);
+    let likes = [...this.state.likes];
+    let index = likes?.findIndex((el) => el.slug === slug);
+    //product already liked - remove
+    if (index >= 0) {
+      likes.splice(index, 1);
+    } else {
+      //product not liked yet - add
+      likes.push(product);
+    }
+    this.setState({ likes });
+    localStorage.setItem("likes", JSON.stringify(likes));
+    console.log(likes);
+  };
+
+  addToCartHandler = (slug) => {
+    let tempProducts = [...this.state.products];
+    const product = tempProducts.find((el) => el.slug === slug);
+    let cart = [...this.state.cart];
+    cart.push(product);
+    console.log(cart);
+    this.setState({ cart });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
 
   filterProducts = () => {
     let {
@@ -283,7 +248,9 @@ class Provider extends Component {
           getAlsoBought: this.getAlsoBought,
           getAlsoLiked: this.getAlsoLiked,
           handleChange: this.handleChange,
-          onAuth: this.auth,
+          setUser: this.setUser,
+          likeProductHandler: this.likeProductHandler,
+          addToCartHandler: this.addToCartHandler,
         }}
       >
         {this.props.children}
@@ -303,3 +270,89 @@ export function withConsumer(Component) {
 }
 
 export { Provider, Consumer, Context };
+
+//   authStart = () => {
+//   this.setState({ error: null, loading: true });
+// };
+
+// continueSigning = () => {
+//   this.setState({ signing: true });
+// };
+
+// cancelSigning = () => {
+//   this.setState({ signing: false });
+// };
+
+// authSuccess = (token, userId) => {
+//   this.setState({
+//     token,
+//     userId,
+//     error: null,
+//     loading: false,
+//     signing: false,
+//   });
+// };
+
+// authFail = (error) => {
+//   this.setState({ error, loading: false });
+// };
+
+// logout = () => {
+//   localStorage.removeItem("token");
+//   localStorage.removeItem("expirationDate");
+//   localStorage.removeItem("userId");
+//   this.setState({ token: null, userId: null });
+// };
+
+// checkAuthTimeout = (expirationTime) => {
+//   setTimeout(() => {
+//     this.logout();
+//   }, expirationTime * 1000);
+// };
+
+// auth = (email, password, isSignup) => {
+//   this.authStart();
+//   const authData = {
+//     email: email,
+//     password: password,
+//     returnSecureToken: true,
+//   };
+//   let url =
+//     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCMSj3Rlu_3BIMXlNDfTGxCkdujfkyAoa8";
+//   if (!isSignup) {
+//     url =
+//       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCMSj3Rlu_3BIMXlNDfTGxCkdujfkyAoa8";
+//   }
+//   Axios.post(url, authData)
+//     .then((response) => {
+//       const expirationDate = new Date(
+//         new Date().getTime() + response.data.expiresIn * 1000
+//       );
+//       localStorage.setItem("token", response.data.idToken);
+//       localStorage.setItem("expirationDate", expirationDate);
+//       localStorage.setItem("userId", response.data.localId);
+//       this.authSuccess(response.data.idToken, response.data.localId);
+//       this.checkAuthTimeout(response.data.expiresIn);
+//     })
+//     .catch((err) => {
+//       this.authFail(err.response.data.error);
+//     });
+// };
+
+// authCheckState = () => {
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     this.logout();
+//   } else {
+//     const expirationDate = new Date(localStorage.getItem("expirationDate"));
+//     if (expirationDate <= new Date()) {
+//       this.logout();
+//     } else {
+//       const userId = localStorage.getItem("userId");
+//       this.authSuccess(token, userId);
+//       this.checkAuthTimeout(
+//         (expirationDate.getTime() - new Date().getTime()) / 1000
+//       );
+//     }
+//   }
+// };
