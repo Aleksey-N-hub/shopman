@@ -1,0 +1,37 @@
+.cart {
+  margin-top: 8%;
+}
+.cart__subtotal {
+  position: fixed;
+  right: 5%;
+  top: 28%;
+  padding: 5%;
+  border: 1px solid #ccc;
+}
+
+.cart__subtotalButton {
+  outline: none;
+  text-transform: uppercase;
+  color: #f46611;
+  background-color: #fff;
+  margin-top: 20px;
+  align-self: center;
+  border-radius: 10px;
+  font-size: 70%;
+  font-weight: 500;
+  width: 80%;
+  height: 40px;
+  border: 2px solid #f46611;
+  letter-spacing: 1.4px;
+}
+
+.cart__subtotalButton:hover,
+.cart__subtotalButton:focus {
+  color: #fff;
+  background-color: #f46611;
+  transition: all 0.5s ease-out;
+}
+
+.cart__subtotalTitle {
+  font-weight: 200;
+}

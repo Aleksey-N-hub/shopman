@@ -190,6 +190,15 @@ class Provider extends Component {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
 
+  removeFromCartHandler = (id) => {
+    let cart = [...this.state.cart];
+    cart.splice(id, 1);
+
+    console.log(cart);
+    this.setState({ cart });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   filterProducts = () => {
     let {
       products,
@@ -251,6 +260,7 @@ class Provider extends Component {
           setUser: this.setUser,
           likeProductHandler: this.likeProductHandler,
           addToCartHandler: this.addToCartHandler,
+          removeFromCartHandler: this.removeFromCartHandler,
         }}
       >
         {this.props.children}

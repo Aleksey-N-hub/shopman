@@ -1,0 +1,64 @@
+.login {
+  padding: 20px;
+}
+.login__container {
+  display: flex;
+  flex-direction: column;
+}
+.login__form {
+  text-align: center;
+}
+.login__form > p {
+  margin: 10px 0 0 0;
+}
+.login__input {
+  width: 80%;
+}
+
+.login__signInButton {
+  margin-top: 20px;
+  align-self: center;
+  color: #fff;
+  background-color: #f46611;
+  border-radius: 10px;
+  font-size: 80%;
+  cursor: pointer;
+  font-weight: 700;
+  width: 40%;
+  height: 40px;
+  outline: none;
+  border: 2px solid #f46611;
+  letter-spacing: 1.4px;
+}
+
+.login__signInButton:hover,
+.login__signInButton:focus {
+  outline: none;
+  color: #f46611;
+  background-color: #fff;
+  transition: all 0.5s ease-out;
+}
+
+.login__registerButton {
+  outline: none;
+  color: #f46611;
+  background-color: #fff;
+  margin-top: 10px;
+  align-self: center;
+  border-radius: 10px;
+  font-size: 70%;
+  cursor: pointer;
+  font-weight: 700;
+  width: 60%;
+  height: 40px;
+  outline: none;
+  border: 2px solid #f46611;
+  letter-spacing: 1.4px;
+}
+
+.login__registerButton:hover,
+.login__registerButton:focus {
+  color: #fff;
+  background-color: #f46611;
+  transition: all 0.5s ease-out;
+}

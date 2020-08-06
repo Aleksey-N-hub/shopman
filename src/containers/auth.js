@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "../components/firebase";
+import TextField from "@material-ui/core/TextField";
+import "./Auth.css";
 
 function Auth({ setUser, clicked, user }) {
   const history = useHistory();
@@ -35,25 +37,45 @@ function Auth({ setUser, clicked, user }) {
   return (
     <div className="login">
       <div className="login__container">
-        <h1>Sign in</h1>
-        <form>
-          <h5>Email</h5>
-          <input
+        <h1 className="title">Sign in</h1>
+        <form className="login__form">
+          <TextField
+            id="outlined-secondary"
+            label="E-mail"
+            variant="outlined"
+            color="secondary"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
             type="email"
+            onChange={(event) => setEmail(event.target.value)}
+            className="login__input"
           />
-          <h5>Password</h5>
-          <input
+          <br />
+          <br />
+          <TextField
+            id="outlined-secondary"
+            label="Password"
+            variant="outlined"
+            color="secondary"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
             type="password"
+            onChange={(event) => setPassword(event.target.value)}
+            className="login__input"
           />
-          <button onClick={login} type="submit" className="login__signInButton">
-            Sign in
-          </button>
         </form>
-        <p>By signing-in here, you agree to SHOPMAN Page Terms & Conditions</p>
+        <button onClick={login} type="submit" className="login__signInButton">
+          Sign in
+        </button>
+        <p
+          style={{
+            fontSize: "60%",
+            textAlign: "center",
+            marginTop: "10px",
+            marginBottom: "5px",
+          }}
+        >
+          By signing-in here, you agree to SHOPMAN Page Terms & Conditions
+        </p>
+
         <button onClick={register} className="login__registerButton">
           Create a new SHOPMAN account
         </button>
@@ -62,179 +84,3 @@ function Auth({ setUser, clicked, user }) {
   );
 }
 export default Auth;
-
-// import { FaRegWindowClose } from "react-icons/fa";
-// import React, { Component } from "react";
-// import Button from "../components/button";
-// import Spinner from "../components/loading";
-// import Input from "../components/input";
-// import { Context } from "../context";
-
-// class Auth extends Component {
-//   state = {
-//     controls: {
-//       email: {
-//         label: "Email:",
-//         elementType: "input",
-//         elementConfig: {
-//           type: "email",
-//           // placeholder: "Enter email",
-//         },
-//         value: "",
-//         validation: {
-//           required: true,
-//           isEmail: true,
-//         },
-//         valid: false,
-//         touched: false,
-//       },
-//       password: {
-//         label: "Password:",
-//         elementType: "input",
-//         elementConfig: {
-//           type: "password",
-//           // placeholder: "Enter password",
-//         },
-//         value: "",
-//         validation: {
-//           required: true,
-//           minLength: 7,
-//         },
-//         valid: false,
-//         touched: false,
-//       },
-//     },
-//     isSignup: true,
-//   };
-
-//   static contextType = Context;
-
-//   checkValidity(value, rules) {
-//     let isValid = true;
-
-//     if (rules.required) {
-//       isValid = value.trim() !== "" && isValid;
-//     }
-
-//     if (rules.minLength) {
-//       isValid = value.length >= rules.minLength && isValid;
-//     }
-
-//     if (rules.maxLength) {
-//       isValid = value.length <= rules.minLength && isValid;
-//     }
-
-//     if (rules.isNumeric) {
-//       const pattern = /^\d+$/;
-//       isValid = pattern.test(value) && isValid;
-//     }
-
-//     return isValid;
-//   }
-
-//   inputChangedHandler = (event, controlName) => {
-//     const updatedControls = {
-//       ...this.state.controls,
-//       [controlName]: {
-//         ...this.state.controls[controlName],
-//         value: event.target.value,
-//         valid: this.checkValidity(
-//           event.target.value,
-//           this.state.controls[controlName].validation
-//         ),
-//         touched: true,
-//       },
-//     };
-
-//     this.setState({ controls: updatedControls });
-//   };
-
-//   submitHandler = (event) => {
-//     const { onAuth } = this.context;
-//     event.preventDefault();
-//     onAuth(
-//       this.state.controls.email.value,
-//       this.state.controls.password.value,
-//       this.state.isSignup
-//     );
-//   };
-
-//   switchAuthModeHandler = () => {
-//     this.setState((prevState) => {
-//       return { isSignup: !prevState.isSignup };
-//     });
-//   };
-
-//   render() {
-//     const { loading, error } = this.context;
-//     const formElementsArray = [];
-//     for (let key in this.state.controls) {
-//       formElementsArray.push({
-//         id: key,
-//         config: this.state.controls[key],
-//       });
-//     }
-
-//     let form = formElementsArray.map((formElement) => (
-//       <Input
-//         key={formElement.id}
-//         elementType={formElement.config.elementType}
-//         elementConfig={formElement.config.elementConfig}
-//         value={formElement.config.value}
-//         invalid={!formElement.config.valid}
-//         shouldValidate={formElement.config.validation}
-//         touched={formElement.config.touched}
-//         changed={(event) => this.inputChangedHandler(event, formElement.id)}
-//         label={formElement.config.label}
-//       />
-//     ));
-
-//     if (loading) {
-//       form = <Spinner />;
-//     }
-
-//     let errorMessage = null;
-//     let errorText = null;
-
-//     if (error) {
-//       if (
-//         this.state.controls.password.value.length <
-//         this.state.controls.password.validation.minValue
-//       ) {
-//         errorText = `Password is too short. Sorry :(`;
-//       } else if (error.code === 400) {
-//         errorText = `This email address is already being used. Sorry :(`;
-//       }
-
-//       errorMessage = (
-//         <div className="error-message">
-//           <FaRegWindowClose className="icon-error" />
-//           {errorText}
-//         </div>
-//       );
-//     }
-
-//     return (
-//       <div className="sign-form">
-//         {errorMessage}
-//         <form onSubmit={this.submitHandler}>
-//           {form}
-//           <Button
-//             btnType="success"
-//             disabled={
-//               !this.state.controls.email.valid ||
-//               !this.state.controls.password.valid
-//             }
-//           >
-//             SUBMIT
-//           </Button>
-//         </form>
-//         <Button clicked={this.switchAuthModeHandler} btnType="secondary">
-//           SWITCH TO {this.state.isSignup ? "SIGNIN" : "SIGNUP"}
-//         </Button>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Auth;

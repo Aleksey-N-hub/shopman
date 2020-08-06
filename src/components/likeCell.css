@@ -1,0 +1,97 @@
+.likeCell {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 6% 2% 2% 2%;
+  text-align: left;
+  color: #222;
+}
+.likeCell a {
+  width: 70%;
+}
+.likeCell__photo {
+  cursor: pointer;
+  width: 100%;
+  object-fit: contain;
+}
+
+.likeCell__information a {
+  color: #222;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.likeCell__price {
+  padding: 2% 0;
+  display: flex;
+  /* justify-content: space-between; */
+  color: #d0021b;
+  font-weight: 700;
+  cursor: default;
+}
+.likeCell__discount {
+  color: #a1a1a1;
+  margin-left: 20px;
+  text-decoration: line-through;
+}
+
+.single-product-price {
+  padding: 0 2%;
+  display: flex;
+  justify-content: space-between;
+  color: #d0021b;
+  font-weight: 700;
+  cursor: default;
+}
+
+.likeCell__addButton {
+  margin-top: 20px;
+  align-self: center;
+  color: #fff;
+  background-color: #f46611;
+  border-radius: 10px;
+  font-size: 60%;
+  cursor: pointer;
+  font-weight: 700;
+  width: 40%;
+  height: 40px;
+  outline: none;
+  border: 2px solid #f46611;
+  letter-spacing: 1.4px;
+}
+
+.likeCell__addButton:hover {
+  outline: none;
+  color: #f46611;
+  background-color: #fff;
+  transition: all 0.5s ease-out;
+}
+
+.likeCell__removeButton {
+  margin-top: 20px;
+  margin-left: 20px;
+  align-self: center;
+  color: #f46611;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 60%;
+  cursor: pointer;
+  font-weight: 700;
+  width: 40%;
+  height: 40px;
+  outline: none;
+  border: 2px solid #f46611;
+  letter-spacing: 1.4px;
+}
+
+.likeCell__removeButton:hover {
+  outline: none;
+  color: #fff;
+  background-color: #f46611;
+  transition: all 0.5s ease-out;
+}
+
+.likeCell__buttons {
+  display: flex;
+  justify-content: space-evenly;
+}

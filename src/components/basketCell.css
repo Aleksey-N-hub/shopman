@@ -1,0 +1,68 @@
+.basketCell {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 6% 2% 2% 2%;
+  text-align: left;
+  color: #222;
+}
+.basketCell a {
+  width: 70%;
+}
+.basketCell__photo {
+  cursor: pointer;
+  width: 100%;
+  object-fit: contain;
+}
+
+.basketCell__information a {
+  color: #222;
+  font-weight: lighter;
+  cursor: pointer;
+}
+
+.basketCell__price {
+  padding: 2% 0;
+  display: flex;
+  /* justify-content: space-between; */
+  color: #d0021b;
+  font-weight: 700;
+  cursor: default;
+}
+.basketCell__discount {
+  color: #a1a1a1;
+  margin-left: 20px;
+  text-decoration: line-through;
+}
+
+.single-product-price {
+  padding: 0 2%;
+  display: flex;
+  justify-content: space-between;
+  color: #d0021b;
+  font-weight: 700;
+  cursor: default;
+}
+
+.basketCell__button {
+  margin-top: 20px;
+  align-self: center;
+  color: #fff;
+  background-color: #f46611;
+  border-radius: 10px;
+  font-size: 60%;
+  cursor: pointer;
+  font-weight: 700;
+  width: 50%;
+  height: 40px;
+  outline: none;
+  border: 2px solid #f46611;
+  letter-spacing: 1.4px;
+}
+
+.basketCell__button:hover {
+  outline: none;
+  color: #f46611;
+  background-color: #fff;
+  transition: all 0.5s ease-out;
+}

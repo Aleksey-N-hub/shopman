@@ -51,7 +51,13 @@ class navbar extends Component {
     // }
     return (
       <nav>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar
+          collapseOnSelect
+          expand="lg"
+          bg="dark"
+          variant="dark"
+          className="navigation"
+        >
           <Navbar.Brand href="/">SHOPMAN</Navbar.Brand>
 
           <Navbar.Collapse id="responsive-navbar-nav">
