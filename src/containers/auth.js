@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { auth } from "../components/firebase";
 import TextField from "@material-ui/core/TextField";
 import "./Auth.css";
@@ -40,7 +40,7 @@ function Auth({ setUser, clicked, user }) {
         <h1 className="title">Sign in</h1>
         <form className="login__form">
           <TextField
-            id="outlined-secondary"
+            id="outlined"
             label="E-mail"
             variant="outlined"
             color="secondary"

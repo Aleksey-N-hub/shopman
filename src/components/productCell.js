@@ -9,7 +9,7 @@ export default function category(props) {
     <div className="product-cell" style={props.style}>
       {props.discount && <Discount discount={props.discount} />}
       {props.new && <New />}
-      <img src={props.src} className="product-photo" />
+      <img src={props.src} className="product-photo" alt="Product" />
       <div className="on-photo">
         <FiShoppingCart className="on-photo-icons" onClick={props.cart} />
         <FiHeart className="on-photo-icons" onClick={props.like} />

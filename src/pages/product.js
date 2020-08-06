@@ -28,7 +28,7 @@ export default class Product extends Component {
       return (
         <div className="product">
           <h2>no such product could be found...</h2>
-          <Link>Back to</Link>
+          <Link to="/">Back to main page...</Link>
         </div>
       );
     }
@@ -51,14 +51,14 @@ export default class Product extends Component {
     let d = new Date();
     d.setDate(14);
 
-    const handleClick = (event) => {
-      console.log(event);
-      console.log(event.src);
-    };
-    const changeIt = (img) => {
-      var name = img.src;
-      console.log(name);
-    };
+    // const handleClick = (event) => {
+    //   console.log(event);
+    //   console.log(event.src);
+    // };
+    // const changeIt = (img) => {
+    //   var name = img.src;
+    //   console.log(name);
+    // };
     return (
       <div>
         <div className="product">
@@ -70,14 +70,14 @@ export default class Product extends Component {
             <br />
             <Reviews stars={stars} reviews={reviews} />
             <br />
-            <p className="single-product-price-2 ">
+            <div className="single-product-price-2 ">
               {price}$
               {discount && (
                 <p className="single-product-discount-price">
                   {((price * 100) / (100 - discount)).toFixed(2)}$
                 </p>
               )}
-            </p>
+            </div>
             <br />
             <br />
             <p className="single-product-delivery">

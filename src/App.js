@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Product from "./pages/product";
 import Category from "./components/categoryContainer";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import NavBar from "./components/navbar";
 import Profile from "./pages/profile";
 import Cart from "./pages/cart";

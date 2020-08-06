@@ -5,7 +5,6 @@ import React, { Component } from "react";
 import { FaRegHeart, FaRegUser } from "react-icons/fa";
 import { FiShoppingCart, FiSearch } from "react-icons/fi";
 import Accordion from "react-bootstrap/Accordion";
-import FormControl from "react-bootstrap/FormControl";
 import Card from "react-bootstrap/Card";
 import Modal from "./modal";
 import Auth from "../containers/auth";
@@ -149,7 +148,7 @@ class navbar extends Component {
             />
           </Nav.Link>
           <Nav.Link href="/cart">
-            <div classname="navlink-2">
+            <div className="navlink-2">
               <FiShoppingCart className="navbar-icon" />
               <span className="navbar-number">{cart?.length}</span>
             </div>

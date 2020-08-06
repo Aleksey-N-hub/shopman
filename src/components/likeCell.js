@@ -16,14 +16,13 @@ export default function basketCell(props) {
     style,
     src,
     remove,
-    id,
     add,
   } = props;
 
   return (
     <div className="likeCell" style={style}>
       <Link to={`/products/${slug}`}>
-        <img src={src} className="likeCell__photo" />
+        <img src={src} className="likeCell__photo" alt="Product" />
       </Link>
       <div className="likeCell__information">
         <Link to={`/products/${slug}`}>

@@ -22,7 +22,7 @@ export default function basketCell(props) {
   return (
     <div className="basketCell" style={style}>
       <Link to={`/products/${slug}`}>
-        <img src={src} className="basketCell__photo" />
+        <img src={src} className="basketCell__photo" alt="Product" />
       </Link>
       <div className="basketCell__information">
         <Link to={`/products/${slug}`}>

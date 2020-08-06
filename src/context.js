@@ -1,7 +1,6 @@
-import React, { Component, createContext, useContext, useReducer } from "react";
+import React, { Component, createContext } from "react";
 import Client from "./Contentful";
-// import New from "./components/new";
-import Axios from "axios";
+// import Axios from "axios";
 import { auth } from "./components/firebase";
 
 const Context = createContext();
@@ -149,15 +148,9 @@ class Provider extends Component {
   };
 
   handleChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = event.target.name;
-    console.log(target);
-    console.log(value);
-    console.log(name);
     this.setState(
       {
-        [name]: value,
+        [event.target.name]: event.target.value,
       },
       this.filterProducts
     );

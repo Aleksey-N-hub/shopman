@@ -9,7 +9,7 @@ export default function materials(props) {
       <br />
       <br />
       <h5>Materials:</h5>
-      {materials.map((el, id) => {
+      {materials.forEach((el, id) => {
         if (id % 2 === 0) {
           return (
             <p key={id} className="material">
@@ -17,6 +17,7 @@ export default function materials(props) {
             </p>
           );
         }
+        return;
       })}
     </div>
   );

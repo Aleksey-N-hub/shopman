@@ -13,7 +13,7 @@ export default function reviews(props) {
   }
   let output = [];
   for (let i = 1; i <= Math.floor(props.stars); i++) {
-    output.push(<FaStar className="stars" />);
+    output.push(<FaStar className="stars" key={i} />);
   }
 
   return (
